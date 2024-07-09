@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+    <style>
+        .welcome-box {
+            text-align: center;
+            padding: 50px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 800px; /* Adjust width as needed */
+            margin: 100px auto;
+        }
+        .welcome-box h1 {
+            margin-bottom: 20px;
+        }
+        .welcome-box a {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .welcome-box a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-box">
+        <h1>Welcome</h1>
+        <a href="{% url 'patient_signup_page' %}">Patient</a>
+        <a href="{% url 'doctor_signup_page' %}">Doctor</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+    <style>
+        .dashboard {
+            width: 800px; /* Adjust width as needed */
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            display: grid;
+            gap: 20px; /* Gap between elements */
+        }
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .user-profile {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+        .user-profile img {
+            width: 100px; /* Adjust image size */
+            height: 100px; /* Adjust image size */
+            border-radius: 50%;
+        }
+        .user-details {
+            font-size: 16px;
+        }
+        .logout-btn {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100px;
+            margin-top: 20px;
+            justify-self: center;
+        }
+        .logout-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="welcome-message">
+            <h2>Welcome, {{user.user_type }} {{ user.first_name }}</h2>
+        </div>
+        <div class="user-profile">
+            <img src="{{user.profile_picture_url }}" alt="Profile Picture">
+            <div class="user-details">
+                <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Address:</strong> {{ user.address_line1 }}, {{ user.city }}, {{ user.state }} - {{ user.pincode }}</p>
+            </div>
+        </div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        function logout() {
+          
+            alert('Logout');
+        }
+    </script>
+</body>
+</html>

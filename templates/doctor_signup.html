@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Signup</title>
+    <style>
+        .signup-box {
+            width: 800px; /* Adjust width as needed */
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns */
+            gap: 20px; /* Gap between columns */
+        }
+        .signup-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            grid-column: span 2; /* Span both columns */
+        }
+        .signup-form {
+            grid-column: span 2; /* Span both columns */
+        }
+        .signup-form label {
+            margin-bottom: 10px;
+            display: block;
+        }
+        .signup-form input[type="text"],
+        .signup-form input[type="email"],
+        .signup-form input[type="password"],
+        .signup-form input[type="file"] {
+            width: calc(100% - 20px); /* Adjust input width minus padding */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .signup-form button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .signup-form button:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-box">
+        <h2>Doctor Signup</h2>
+        <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+        <form id="signup_form" action="{% url 'doctor_signup' %}" method="post" enctype="multipart/form-data" class="signup-form">
+            {% csrf_token %}
+            <div style="display: grid; grid-template-columns: 1fr 1fr;">
+                <div>
+                    <label for="fname">First Name:</label>
+                    <input type="text" id="fname" name="fname" required><br>
+                    <label for="lname">Last Name:</label>
+                    <input type="text" id="lname" name="lname" required><br>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required><br>
+                    {% if errors.username %}
+                        <div class="error-message">{{ errors.username.0 }}</div>
+                    {% endif %}
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"><br>
+                    {% if errors.email %}
+                        <div class="error-message">{{ errors.email.0 }}</div>
+                    {% endif %}
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required pattern=".{8,}" title="Password must be at least 8 characters long"><br>
+                    {% if errors.password %}
+                        <div class="error-message">{{ errors.password.0 }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="confirm_password">Confirm Password:</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required><br>
+                    {% if errors.confirm_password %}
+                        <div class="error-message">{{ errors.confirm_password.0 }}</div>
+                    {% endif %}
+                    <label for="address_line1">Address Line 1:</label>
+                    <input type="text" id="address_line1" name="address_line1" required><br>
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" required><br>
+                    <label for="state">State:</label>
+                    <input type="text" id="state" name="state" required><br>
+                    <label for="pincode">Pincode:</label>
+                    <input type="text" id="pincode" name="pincode" required><br>
+                    <label for="profile_picture">Profile Picture:</label>
+                    <input type="file" id="profile_picture" name="profile_picture"><br>
+                </div>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+       
+        document.getElementById('signup_form').addEventListener('submit', function(event) {
+            var password = document.getElementById('password').value;
+            var confirm_password = document.getElementById('confirm_password').value;
+
+            if (password !== confirm_password) {
+                event.preventDefault();
+                var errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.textContent = 'Passwords do not match!';
+                document.getElementById('confirm_password').parentNode.appendChild(errorDiv);
+            }
+        });
+    </script>
+</body>
+</html>
