@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Blog Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            background-color: #007bff;
+            overflow: hidden;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #0056b3;
+        }
+        .blog-post {
+            width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        .blog-post img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .blog-post h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .blog-post p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .blog-post strong {
+            font-weight: bold;
+        }
+        .blog-post a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .blog-post a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'display_patient_dashboard' %}">Back to Dashboard</a>
+    </div>
+    <div class="blog-post">
+        <h2>{{ blog_post.title }}</h2>
+        <img src="{{ blog_post.image_url }}" alt="Blog Image">
+        <p><strong>Category:</strong> {{ blog_post.category }}</p>
+        <p>{{ blog_post.content }}</p>
+    </div>
+    <script>
+        window.onreload = function() {
+            window.location.href = "{% url 'view_blog_post' blog_post_id=blog_post.id %}";
+        };
+    </script>
+</body>
+</html>

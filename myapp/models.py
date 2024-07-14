@@ -24,3 +24,28 @@ class User(models.Model):
 
     def __str__(self):
         return self.username
+
+class BlogPost(models.Model):
+    CATEGORY_CHOICES = [
+        ('mental_health', 'Mental Health'),
+        ('heart_disease', 'Heart Disease'),
+        ('covid19', 'Covid19'),
+        ('immunization', 'Immunization'),
+    ]
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='blog_images/', blank=True, null=True)
+    category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
+    summary = models.TextField()
+    content = models.TextField()
+    is_draft = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def truncated_summary(self):
+        words = self.summary.split()
+        if len(words) > 15:
+            return ' '.join(words[:15]) + '...'
+        else:
+            return self.summarys
+    def __str__(self):
+        return self.title
