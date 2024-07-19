@@ -5,6 +5,8 @@ import sys
 
 
 def main():
+    SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'assign.settings')
     try:

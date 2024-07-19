@@ -80,6 +80,23 @@
             padding: 10px;
             margin-bottom: 10px;
             border-radius: 5px;
+
+        }
+        .doctor-item, .appointment-item {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .doctor-item img, .appointment-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+        .doctor-details, .appointment-details {
+            flex-grow: 1;
         }
         .logout-btn {
             padding: 10px;
@@ -104,6 +121,7 @@
     <div class="navbar">
         <a href="javascript:void(0)" onclick="showSection('profile')">Profile</a>
         <a href="javascript:void(0)" onclick="showSection('blog')">Blog</a>
+        <a href="javascript:void(0)" onclick="showSection('appointments')">Appointments</a>
         <a href="#" onclick="logout()">Logout</a>
     </div>
     <div class="dashboard">
@@ -112,7 +130,7 @@
         </div>
         
 
-        <div id="profile" class="user-profile active">
+        <div id="profile" class="user-profile">
             <img src="{{user.profile_picture_url }}" alt="Profile Picture">
             <div class="user-details">
                 <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
@@ -176,6 +194,28 @@
             </div>
         </div>
 
+        <div id="appointments" class="blog-section">
+            <h2>Your Appointments</h2>
+            {% if appointments %}
+                <ul>
+                    {% for appointment in appointments %}
+                        <div class="doctor-item">
+                            <div class="doctor-details">
+                            <strong>Patient:</strong> {{ appointment.patient_name}}<br>
+                            <strong>Date:</strong> {{ appointment.date|date:"Y-m-d" }}<br>
+                            <strong>Start Time:</strong> {{ appointment.stime|date:"H:i" }}<br>
+                            <strong>End Time:</strong> {{ appointment.etime|date:"H:i" }}<br>
+                            <strong>Specialty:</strong> {{ appointment.specialities}}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You have no upcoming appointments.</p>
+            {% endif %}
+        </div>
+
+
         <button class="logout-btn" onclick="logout()">Logout</button>
     </div>
 
@@ -183,6 +223,8 @@
         function showSection(section) {
             document.getElementById('profile').classList.remove('active');
             document.getElementById('blog').classList.remove('active');
+            document.getElementById('appointments').classList.remove('active');
+            
             document.getElementById(section).classList.add('active');
         }
 

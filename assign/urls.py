@@ -18,8 +18,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from myapp import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,5 +36,10 @@ urlpatterns = [
     path('displaypatdash/',views.display_patient_dashboard, name="display_patient_dashboard"),
     path('blog/<int:blog_post_id>/', views.view_blog_post, name='view_blog_post'),
     path('blog/<int:blog_post_id>/delete/', views.delete_blog_post, name='delete_blog_post'),
+    path('book_appointment/<int:doctor_id>/', views.book_appointment, name='book_appointment'),
+    path('v1/calendar/init/', views.google_calendar_init_view, name='google_permission'),
+    path('v1/calendar/redirect/', views.google_calendar_redirect_view, name='google_redirect')
+   
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+                      )

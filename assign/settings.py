@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'myapp'
+    
 ]
 
 MIDDLEWARE = [
@@ -51,8 +52,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CSRF_COOKIE_SECURE = True  # Set to True if using HTTPS
-CSRF_COOKIE_HTTPONLY = True  # Recommended to prevent JavaScript access
+
+CSRF_COOKIE_SECURE = False # Set to True if using HTTPS
+CSRF_COOKIE_HTTPONLY = False  # Recommended to prevent JavaScript access
+
+TIME_ZONE = 'Asia/Kolkata'
+USE_TZ = True
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 
 ROOT_URLCONF = 'assign.urls'
@@ -78,10 +85,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 WSGI_APPLICATION = 'assign.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     'default': {

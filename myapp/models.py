@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.hashers import make_password
+from django.core.exceptions import ValidationError
 
 class User(models.Model):
     
@@ -19,6 +20,7 @@ class User(models.Model):
     pincode = models.IntegerField()
     user_type = models.CharField(max_length=8, choices=USER_TYPES)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    speciality = models.CharField(max_length=200,null=True,blank=True)
     
   
 
@@ -49,3 +51,20 @@ class BlogPost(models.Model):
             return self.summarys
     def __str__(self):
         return self.title
+    
+    
+class Appointment(models.Model):
+    patient = models.ForeignKey(User, on_delete=models.CASCADE,related_name="patient")
+    doctor = models.ForeignKey(User, on_delete=models.CASCADE,related_name="doctor")
+    time = models.DateTimeField(null=False)
+    speciality = models.CharField(max_length=200,null=False)
+    
+    def save(self, *args, **kwargs):
+        if self.patient.user_type != 'patient':
+            raise ValidationError(f"User {self.patient.username} is not a patient.")
+        if self.doctor.user_type != 'doctor':
+            raise ValidationError(f"User {self.doctor.username} is not a doctor.")
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"Appointment with Dr. {self.doctor.username} for {self.patient.username} at {self.time}"

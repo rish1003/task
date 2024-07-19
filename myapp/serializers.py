@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ['id', 'fname', 'lname', 'username', 'email', 'password', 'address_line1', 'city', 'state', 'pincode', 'profile_picture', 'user_type']
+        fields = '__all__'
 
    
 class BlogPostSerializer(serializers.ModelSerializer):
